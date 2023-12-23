@@ -2,6 +2,8 @@ package geek.winterthings.blocks;
 
 import javax.annotation.Nullable;
 
+import geek.winterthings.WTRegistries;
+import geek.winterthings.entity.BaseBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -10,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -21,16 +24,16 @@ public class BaseBlock extends Block implements EntityBlock{
 
     @Override
     @Deprecated
-    public void onPlace(BlockState p_60566_, Level p_60567_, BlockPos p_60568_, BlockState p_60569_, boolean p_60570_) {
-        super.onPlace(p_60566_, p_60567_, p_60568_, p_60569_, p_60570_);
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState state2, boolean p_60570_) {
+        super.onPlace(state, level, pos, state2, p_60570_);
 
     }
 
     @Override
     @Deprecated
-    public void onRemove(BlockState p_60515_, Level p_60516_, BlockPos p_60517_, BlockState p_60518_,
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState state2,
             boolean p_60519_) {
-        super.onRemove(p_60515_, p_60516_, p_60517_, p_60518_, p_60519_);
+        super.onRemove(state, level, pos, state2, p_60519_);
     }
 
     @Override
@@ -42,9 +45,8 @@ public class BaseBlock extends Block implements EntityBlock{
 
     @Override
     @Nullable
-    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'newBlockEntity'");
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new BaseBlockEntity(pos, state);
     }
 
 }

@@ -5,16 +5,23 @@ import javax.annotation.Nullable;
 import geek.winterthings.WTRegistries;
 import geek.winterthings.entity.BaseBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.commands.TeamCommand;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.scores.Scoreboard;
+import net.minecraft.world.scores.Team;
 
 public class BaseBlock extends Block implements EntityBlock{
 
@@ -23,10 +30,15 @@ public class BaseBlock extends Block implements EntityBlock{
     }
 
     @Override
-    @Deprecated
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState state2, boolean p_60570_) {
-        super.onPlace(state, level, pos, state2, p_60570_);
-
+    public void setPlacedBy(Level level, BlockPos pos, BlockState p_49849_, @Nullable LivingEntity player,
+            ItemStack p_49851_) {
+        super.setPlacedBy(level, pos, p_49849_, player, p_49851_);
+        BlockEntity be = level.getBlockEntity(pos);
+        PlayerTeam team = new PlayerTeam(level.getScoreboard(), player.getName().getString() + "'s Team");
+        if(be instanceof BaseBlockEntity blockEntity){
+            blockEntity.setTeam(team);
+        }
+                
     }
 
     @Override

@@ -36,13 +36,9 @@ import org.slf4j.Logger;
 public class WinterThings
 {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "KCWT";
+    public static final String MODID = "kcwt";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, WinterThings.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     // // Creates a new Block with the id "examplemod:example_block", combining the namespace and path
@@ -65,9 +61,9 @@ public class WinterThings
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        BLOCKS.register(modEventBus);
-        EFFECTS.register(modEventBus);
-        ITEMS.register(modEventBus);
+        WTRegistries.BLOCKS.register(modEventBus);
+        WTRegistries.ITEMS.register(modEventBus);
+        WTRegistries.BETYPES.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in

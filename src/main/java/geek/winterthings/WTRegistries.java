@@ -18,7 +18,7 @@ public class WTRegistries {
     // Registries
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, WinterThings.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, WinterThings.MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BETYPE = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, WinterThings.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BETYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, WinterThings.MODID);
 
 
     // Items
@@ -30,7 +30,7 @@ public class WTRegistries {
     public static final RegistryObject<Block> BASE_BLOCK = registerBlock("Base",new BaseBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
     // Block Entities
-    public static final RegistryObject<BlockEntityType<BaseBlockEntity>> BASE_BLOCK_ENTITY = BETYPE.register("base_block_entity", () -> 
+    public static final RegistryObject<BlockEntityType<BaseBlockEntity>> BASE_BLOCK_ENTITY = BETYPES.register("base_block_entity", () -> 
     BlockEntityType.Builder.of(BaseBlockEntity::new, BASE_BLOCK.get()).build(null));
 
     // Misc

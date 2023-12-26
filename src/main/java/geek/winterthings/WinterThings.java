@@ -61,9 +61,7 @@ public class WinterThings
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        WTRegistries.BLOCKS.register(modEventBus);
-        WTRegistries.ITEMS.register(modEventBus);
-        WTRegistries.BETYPES.register(modEventBus);
+        WTRegistries.init(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in

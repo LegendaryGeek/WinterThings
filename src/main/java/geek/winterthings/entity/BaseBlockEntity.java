@@ -13,7 +13,7 @@ public class BaseBlockEntity extends BlockEntity{
     private PlayerTeam team;
 
     public BaseBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
-        super(WTRegistries.BASE_BLOCK_ENTITY.get(), p_155229_, p_155230_);
+        super(WTRegistries.NEXUS_BLOCK_ENTITY.get(), p_155229_, p_155230_);
     }
     @Override
     protected void saveAdditional(CompoundTag nbt) {

@@ -1,6 +1,7 @@
 package geek.winterthings;
 
-import org.antlr.v4.parse.ANTLRParser.finallyClause_return;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import geek.winterthings.blocks.BaseBlock;
 import geek.winterthings.entity.BaseBlockEntity;
@@ -9,9 +10,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class WTRegistries {
 
@@ -22,25 +26,40 @@ public class WTRegistries {
 
 
     // Items
-    public static final RegistryObject<Item> WINTER_JAM = registerItem("winter_jam",new Item(new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEat().nutrition(1).saturationMod(2f).build())));
-            
+    public static final RegistryObject<Item> WINTER_JAM = registerItem("winter_jam", () -> new Item(
+            new Item.Properties().food(
+                    new FoodProperties.Builder()
+                            .alwaysEat()
+                            .nutrition(1)
+                            .saturationMod(2f)
+                            .build()
+            )));
+
 
     // Blocks
-    public static final RegistryObject<Block> BASE_BLOCK = registerBlock("Base",new BaseBlock(BlockBehaviour.Properties.of().strength(2.0f)));
+    public static final RegistryObject<Block> NEXUS_BLOCK = registerBlock("nexus", () -> new BaseBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
     // Block Entities
-    public static final RegistryObject<BlockEntityType<BaseBlockEntity>> BASE_BLOCK_ENTITY = BETYPES.register("base_block_entity", () -> 
-    BlockEntityType.Builder.of(BaseBlockEntity::new, BASE_BLOCK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BaseBlockEntity>> NEXUS_BLOCK_ENTITY = registerBlockEntity("nexus", BaseBlockEntity::new, NEXUS_BLOCK);
 
-    // Misc
 
-    public static RegistryObject<Block> registerBlock(String name, Block block){
-        return BLOCKS.register(name, () -> block);
+    public static void init(IEventBus modEventBus) {
+        BLOCKS.register(modEventBus);
+        ITEMS.register(modEventBus);
+        BETYPES.register(modEventBus);
     }
 
-        public static RegistryObject<Item> registerItem(String name, Item item){
-        return ITEMS.register(name, () -> item);
+    private static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> blockFactory) {
+        RegistryObject<Block> result = BLOCKS.register(name, blockFactory);
+        ITEMS.register(name, () -> new BlockItem(result.get(), new Item.Properties()));
+        return result;
     }
 
+    public static RegistryObject<Item> registerItem(String name, Supplier<? extends Item> itemFactory) {
+        return ITEMS.register(name, itemFactory);
+    }
+
+    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(String name, BlockEntityType.BlockEntitySupplier<T> factory, RegistryObject<Block> block) {
+        return BETYPES.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
+    }
 }

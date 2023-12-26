@@ -1,5 +1,7 @@
 package geek.winterthings.entity;
 
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.jetbrains.annotations.ApiStatus.OverrideOnly;
 
 import net.minecraft.server.commands.TeamCommand;
@@ -11,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 public class SnowMan extends PathfinderMob {
 
-    protected SnowMan(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
+    public SnowMan(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
         //TODO Auto-generated constructor stub
     }
@@ -21,6 +23,10 @@ public class SnowMan extends PathfinderMob {
         return false;
     }
 
-    
+    public static AttributeSupplier.Builder createAttributes() {
+        return PathfinderMob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D);
+    }
     
 }

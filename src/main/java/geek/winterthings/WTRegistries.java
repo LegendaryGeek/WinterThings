@@ -3,8 +3,8 @@ package geek.winterthings;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import geek.winterthings.blocks.BaseBlock;
-import geek.winterthings.entity.BaseBlockEntity;
+import geek.winterthings.nexus.NexusBlock;
+import geek.winterthings.nexus.NexusBlockEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -37,10 +37,10 @@ public class WTRegistries {
 
 
     // Blocks
-    public static final RegistryObject<Block> NEXUS_BLOCK = registerBlock("nexus", () -> new BaseBlock(BlockBehaviour.Properties.of().strength(2.0f)));
+    public static final RegistryObject<Block> NEXUS_BLOCK = registerBlock("nexus", () -> new NexusBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
     // Block Entities
-    public static final RegistryObject<BlockEntityType<BaseBlockEntity>> NEXUS_BLOCK_ENTITY = registerBlockEntity("nexus", BaseBlockEntity::new, NEXUS_BLOCK);
+    public static final RegistryObject<BlockEntityType<NexusBlockEntity>> NEXUS_BLOCK_ENTITY = registerBlockEntity("nexus", NexusBlockEntity::new, NEXUS_BLOCK);
 
 
     public static void init(IEventBus modEventBus) {

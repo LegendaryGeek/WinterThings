@@ -1,6 +1,7 @@
 package geek.winterthings;
 
 import geek.winterthings.entity.SnowMan;
+import geek.winterthings.items.SnowmanSpawner;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -45,8 +46,7 @@ public class WTRegistries {
                             .saturationMod(2f)
                             .build()
             )));
-
-
+    
     // Blocks
     public static final RegistryObject<Block> NEXUS_BLOCK = registerBlock("nexus", () -> new NexusBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
@@ -56,12 +56,15 @@ public class WTRegistries {
     // Entities
     public static final RegistryObject<EntityType<SnowMan>> SNOW_MAN = registerEntity("snow_man", EntityType.Builder.of(SnowMan::new, MobCategory.MONSTER).sized(0.35F, 0.6F).clientTrackingRange(8).updateInterval(2));
 
+    // Spawners
+    public static final RegistryObject<Item> SNOWMAN_SPAWNER =  registerItem("snowman_spawner", () -> new SnowmanSpawner(new Item.Properties(), SNOW_MAN.get()));
+
 
     public static void init(IEventBus modEventBus) {
+        ENTITY_TYPES.register(modEventBus);
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         BETYPES.register(modEventBus);
-        ENTITY_TYPES.register(modEventBus);
         modEventBus.addListener(WTRegistries::registerAttributes);
     }
 

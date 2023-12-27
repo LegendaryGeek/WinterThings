@@ -20,26 +20,25 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 
 public class SnowmanSpawner extends Item {
 
-    EntityType<?> entityToSpawn;
+    Supplier<EntityType<?>> entityToSpawn;
 
-    public SnowmanSpawner(Properties properties, Supplier<? extends EntityType<? extends Mob>> type) {
+    public SnowmanSpawner(Properties properties, Supplier<EntityType<?>> type) {
         super(properties);
-        entityToSpawn = type.get();
+        entityToSpawn = type;
     }
 
-    @Override
-    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int p_41431_) {
-        // TODO Auto-generated method stub
-        super.onUseTick(level, entity, stack, p_41431_);
-        if(entity instanceof Player player){
-            //ForgeSpawnEggItem
-            entityToSpawn.spawn((ServerLevel)level, getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos(), MobSpawnType.SPAWN_EGG);
-        }
-    }
+    // @Override
+    // public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int p_41431_) {
+    //     super.onUseTick(level, entity, stack, p_41431_);
+    //     if(entity instanceof Player player){
+    //         //ForgeSpawnEggItem
+    //         entityToSpawn.spawn((ServerLevel)level, getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos(), MobSpawnType.SPAWN_EGG);
+    //     }
+    // }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        entityToSpawn.spawn((ServerLevel)level, getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos(), MobSpawnType.SPAWN_EGG);
+        entityToSpawn.get().spawn((ServerLevel)level, getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos(), MobSpawnType.SPAWN_EGG);
         return super.use(level, player, usedHand);
     }
     

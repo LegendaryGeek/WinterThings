@@ -57,7 +57,7 @@ public class WTRegistries {
     public static final RegistryObject<EntityType<SnowMan>> SNOW_MAN = registerEntity("snow_man", EntityType.Builder.of(SnowMan::new, MobCategory.MONSTER).sized(0.35F, 0.6F).clientTrackingRange(8).updateInterval(2));
 
     // Spawners
-    public static final RegistryObject<Item> SNOWMAN_SPAWNER =  registerItem("snowman_spawner", () -> new SnowmanSpawner(new Item.Properties(), () -> SNOW_MAN.get()));
+    //public static final RegistryObject<Item> SNOWMAN_SPAWNER =  registerItem("snowman_spawner", () -> new SnowmanSpawner(new Item.Properties(), SNOW_MAN));
 
 
     public static void init(IEventBus modEventBus) {

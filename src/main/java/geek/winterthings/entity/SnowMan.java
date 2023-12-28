@@ -32,7 +32,7 @@ public class SnowMan extends PathfinderMob {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this))); // TODO ignore fiendly fire
     }
 
     @Override

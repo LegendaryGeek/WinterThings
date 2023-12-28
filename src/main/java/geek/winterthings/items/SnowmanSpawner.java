@@ -20,9 +20,9 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 
 public class SnowmanSpawner extends Item {
 
-    Supplier<EntityType<?>> entityToSpawn;
+    Supplier<? extends EntityType<? extends Mob>> entityToSpawn;
 
-    public SnowmanSpawner(Properties properties, Supplier<EntityType<?>> type) {
+    public SnowmanSpawner(Properties properties, Supplier<? extends EntityType<? extends Mob>> type) {
         super(properties);
         entityToSpawn = type;
     }
@@ -38,7 +38,9 @@ public class SnowmanSpawner extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        if(!level.isClientSide){
         entityToSpawn.get().spawn((ServerLevel)level, getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos(), MobSpawnType.SPAWN_EGG);
+        }
         return super.use(level, player, usedHand);
     }
     

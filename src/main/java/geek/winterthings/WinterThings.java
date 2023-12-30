@@ -3,17 +3,9 @@ package geek.winterthings;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -42,12 +34,11 @@ public class WinterThings
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("winter_tab", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> CREATIVE_TABS = CREATIVE_MODE_TABS.register("winter_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> WTRegistries.WINTER_JAM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(WTRegistries.WINTER_JAM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                WTRegistries.ITEMS.getEntries().forEach(item -> output.accept(item.get()));
             }).build());
 
     public WinterThings()
